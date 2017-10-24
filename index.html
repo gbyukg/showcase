@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Presentation</title>
+  <title>My Preso</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
 
@@ -377,68 +377,268 @@
 </footer>
 
 <div id="slides" class="offscreen" style="display:none;">
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_Docker_Architecture_one_00_section" class="slide center subsection" data-transition="none">
-<div class="content center subsection" ref="/Users/gbyukg/work/showcase/HubArchitecture/Docker Architecture/one/00_section">
-<h1>Section Header</h1>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="01_slide" id="_Users_gbyukg_work_showcase_HubArchitecture_Docker_Architecture_one_01_slide" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/Docker Architecture/one/01_slide">
-<h1>My Presentation</h1>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="02_slide" id="_Users_gbyukg_work_showcase_HubArchitecture_Docker_Architecture_one_02_slide" class="slide bullets incremental" data-transition="none">
-<div class="content bullets incremental" ref="/Users/gbyukg/work/showcase/HubArchitecture/Docker Architecture/one/02_slide">
-<h1>Bullet Points</h1>
-
-<ul>
-<li>first point</li>
-<li>second point</li>
-<li>third point</li>
-</ul>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section1" class="slide center subsection" data-transition="none">
-<div class="content center subsection" ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:1">
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section1" class="slide center subsection" data-transition="none">
+<div class="content center subsection" ref="MicroService Architecture/00_section:1">
 <h1>About demo</h1>
 
 <p><a href="http://devdocker01.rtp.raleigh.ibm.com/">http://devdocker01.rtp.raleigh.ibm.com/</a></p>
 </div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section2" class="slide" data-transition="turnUp">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:2">
-<h1>The architecture of Demo APP</h1>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
 
-<p><img src="./file///Users/gbyukg/work/showcase/HubArchitecture/_images/app_infrastructure.png" alt="Alt text"></p>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section3" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:3">
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
 <h1>Infrastructure services</h1>
 
-<p><img src="./file///Users/gbyukg/work/showcase/HubArchitecture/_images/cluster_infrustructur.png" alt="Alt text"></p>
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section2" class="slide" data-transition="turnUp">
+<div class="content " ref="MicroService Architecture/00_section:2">
+<h1>The architecture of Demo APP</h1>
+
+<p><img src="./file//_images/app_infrastructure.png" alt="Alt text"></p>
+</div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
+<canvas class="annotations"></canvas>
+</div>
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section3" class="slide" data-transition="none">
+<div class="content " ref="MicroService Architecture/00_section:3">
+<h1>Infrastructure services</h1>
+
+<p><img src="./file//_images/cluster_infrustructur.png" alt="Alt text"></p>
 
 <p class="callout thumbsup">Two manager nodes ensure that even one of manager node is down, we can still hold the whole cluster</p>
 </div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
 <canvas class="annotations"></canvas>
 </div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section4" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:4">
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section4" class="slide" data-transition="none">
+<div class="content " ref="MicroService Architecture/00_section:4">
 <h1>Micoservice Infrastructure</h1>
 
-<p><img src="./file///Users/gbyukg/work/showcase/HubArchitecture/_images/Internal_cluster.png" alt="Alt text"></p>
+<p><img src="./file//_images/Internal_cluster.png" alt="Alt text"></p>
 
 <p class="callout info"><a href="http://devdocker-builder.rtp.raleigh.ibm.com:8080/">http://devdocker-builder.rtp.raleigh.ibm.com:8080/</a></p>
 </div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
 <canvas class="annotations"></canvas>
 </div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section5" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:5">
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section5" class="slide" data-transition="none">
+<div class="content " ref="MicroService Architecture/00_section:5">
 <h1>Capability</h1>
 
 <ul>
@@ -449,10 +649,66 @@
 <li>Real-time alerts monitoring</li>
 </ul>
 </div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
 <canvas class="annotations"></canvas>
 </div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section6" class="slide" data-transition="turnUp">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:6">
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section6" class="slide" data-transition="turnUp">
+<div class="content " ref="MicroService Architecture/00_section:6">
 <h1>Auto deploy</h1>
 
 <h2>Zero Down time deployments</h2>
@@ -463,12 +719,68 @@
 <li>Rollback to the previous version freely.</li>
 </ul>
 
-<p><img src="./file///Users/gbyukg/work/showcase/HubArchitecture/_images/deploy.png" alt="Alt text"></p>
+<p><img src="./file//_images/deploy.png" alt="Alt text"></p>
 </div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
 <canvas class="annotations"></canvas>
 </div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section7" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:7">
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section7" class="slide" data-transition="none">
+<div class="content " ref="MicroService Architecture/00_section:7">
 <h1>123</h1>
 
 <p>Have ability to handle increased load in a graceful manner or its potential to be enlarged as demand increases.
@@ -497,25 +809,8 @@ docker service scale gateway=3</p>
 <li><p>Real-time alerts monitoring</p></li>
 </ul>
 </div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture_MicroService_Architecture_00_section8" class="slide" data-transition="turnUp">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/MicroService Architecture/00_section:8">
-<h1>Scalability</h1>
-
-<p>Scalability is the capability of a system, network, or process to handle a growing amount of work, or its potential to be enlarged to accommodate that growth.</p>
-
-<ul>
-<li>Increate node at any time</li>
-<li>Balance</li>
-</ul>
-
-<h1>部署</h1>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture__notes_MicroService_Architecture_00_section1" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/_notes/MicroService Architecture/00_section:1">
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
 <h1>Demo</h1>
 
 <p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
@@ -523,11 +818,7 @@ docker service scale gateway=3</p>
 <p>But no matter which project we are using, they are exactly the same.</p>
 
 <p>So Let's take a quick preview of our demo application.</p>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture__notes_MicroService_Architecture_00_section2" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/_notes/MicroService Architecture/00_section:2">
+
 <h1>The architecture of Microservice</h1>
 
 <p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
@@ -544,11 +835,7 @@ docker service scale gateway=3</p>
 为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
 
 <p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture__notes_MicroService_Architecture_00_section3" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/_notes/MicroService Architecture/00_section:3">
+
 <h1>Infrastructure services</h1>
 
 <p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
@@ -566,11 +853,7 @@ docker service scale gateway=3</p>
 <p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
 
 <p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
-</div>
-<canvas class="annotations"></canvas>
-</div>
-<div data-section="." data-title="00_section" id="_Users_gbyukg_work_showcase_HubArchitecture__notes_MicroService_Architecture_00_section4" class="slide" data-transition="none">
-<div class="content " ref="/Users/gbyukg/work/showcase/HubArchitecture/_notes/MicroService Architecture/00_section:4">
+
 <h1>Capability</h1>
 
 <ul>
@@ -581,7 +864,78 @@ docker service scale gateway=3</p>
 <li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
 <li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
 </ul>
+</div></div>
+<canvas class="annotations"></canvas>
 </div>
+<div data-section="MicroService Architecture" data-title="00_section" id="MicroService_Architecture_00_section8" class="slide" data-transition="turnUp">
+<div class="content " ref="MicroService Architecture/00_section:8">
+<h1>Scalability</h1>
+
+<p>Scalability is the capability of a system, network, or process to handle a growing amount of work, or its potential to be enlarged to accommodate that growth.</p>
+
+<ul>
+<li>Increate node at any time</li>
+<li>Balance</li>
+</ul>
+
+<h1>部署</h1>
+</div>
+<div class="notes-section notes"><div class="personal">
+<h1>Personal Notes</h1>
+<h1>Demo</h1>
+
+<p>For this demo, Instead of using hub as our demo project in this showcase, I'm going to use a small but complete custom project as demo project, because Hub just started, there is no enough data and functionality to illustrate the whole infrastructor.</p>
+
+<p>But no matter which project we are using, they are exactly the same.</p>
+
+<p>So Let's take a quick preview of our demo application.</p>
+
+<h1>The architecture of Microservice</h1>
+
+<p>In order to have a more better understanding of our Docker Infrastructure, so firstly, I will gave you a brief description of this demo application. The demo application is a typical micro-service application.</p>
+
+<p>This project is a typcal microservice architecture. It was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.</p>
+
+<ul>
+<li>Account service</li>
+<li>Statistics service</li>
+<li>Notification service</li>
+</ul>
+
+<p>这是一个典型的微服务架构, 它包含3个模块, 并且每个模块都有自己对应的独立数据库, 3个模块之间使用 REST API 来进行通信.
+为这种结构的微服务搭建服务器, 我们可能首先想到的就是设置6台主机, 分别运行这3个模块和他们对应的数据库.</p>
+
+<p>但是今天我们要讲的是如何使用 docker 来搭建这种微服务架构的, 以及使用 docker 的优势.</p>
+
+<h1>Infrastructure services</h1>
+
+<p>我们首先搭建了5台 docker 服务器, 并将这5台服务器通过 Local Area Network(LAN) 的方式连接到一起, 使他们成为一个集群, 设置为集群有两个最重要的好处
+- 灵活性, 我们可以在任意时候随意向这个集群中增加或减少服务器
+- 我们可以将这5台server当做一个整体来看待, 在部署某个docker容器的时候, 能让我们自动分配系统资源.</p>
+
+<p>并且这里设置了两台服务器作为集群的 manager 服务器, 来管理整个集群, 之所以设置2个服务器就是为了防止一种一台manager服务区宕掉后, 我们还有一台备用的manager服务器来管理整个集群.</p>
+
+<p>所有的 docker 容器均匀的分布在这5台服务器中运行.</p>
+
+<p><a href="http://devdocker01.rtp.raleigh.ibm.com:8080/">http://devdocker01.rtp.raleigh.ibm.com:8080/</a></p>
+
+<p>We have totaly five servers, and these servers work together as one cluster.</p>
+
+<p>The significant difference between a cluster and a group of servers is that the cluster acts as a single system trying to provide high availability, load balancing, and parallel processing.</p>
+
+<p>While, in the morning, some service might require a lot of memory, during the afternoon that usage might be lower.</p>
+
+<h1>Capability</h1>
+
+<ul>
+<li><p>Scaling up/down at any time (on need basis)
+可以让我们在任何时刻随意修改运行的容器个数, 甚至来说, 可能上午的时候某个模块访问流量比较大, 我们就可以增加这个模块的运行数量来减少压力, 等到晚上的时候访问量可能恢复到正常, 这个时候我们就可以在把容器数恢复回来.</p></li>
+<li><p>Failure handling 容错率
+容错率包括两种情况:</p></li>
+<li><p>某个容器down掉时, 会自动启动一个新的容器</p></li>
+<li><p>某个服务器整个down掉后, 会自动在其他服务器上运行这台服务器上运行的容器</p></li>
+</ul>
+</div></div>
 <canvas class="annotations"></canvas>
 </div>
 </div>
