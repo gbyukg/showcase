@@ -23,7 +23,7 @@ http://devdocker01.rtp.raleigh.ibm.com/
 .callout.info http://devdocker-builder.rtp.raleigh.ibm.com:8080/
 
 <!SLIDE>
-# Capacity
+# Capability
 
 - Scaling up/down at any time (on need basis)
 - Failure handling
