@@ -36,6 +36,10 @@ http://devdocker01.rtp.raleigh.ibm.com/
 
 ## Zero Down time deployments
 
+- Only one node is updated at a time.
+- Auto rollback all nodes at a time when deployment failure.
+- Rollback to the previous version freely.
+
 ![Alt text](../_images/deploy.png)
 
 <!SLIDE>
